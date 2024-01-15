@@ -138,7 +138,7 @@ module.exports = {
                 use: "raw-loader"
             }
         ]
-    }
+    },
     plugins: [
         /*
             injects the bundle names into a template html file,
@@ -173,7 +173,7 @@ module.exports = {
                 use: "raw-loader"
             }
         ]
-    }
+    },
     plugins: [
         new HtmlWebpackPlugin({ template: './src/index.html' })
     ]
