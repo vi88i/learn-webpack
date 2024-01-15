@@ -1,0 +1,5 @@
+@import "./common/css/theme.css";
+
+h1 {
+    font-size: 16px;
+}

@@ -12,7 +12,10 @@
   "author": "Vighnesh Nayak S",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^6.9.0",
     "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.7.7",
+    "style-loader": "^3.3.4",
     "webpack": "^5.89.0",
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4"

@@ -9,3 +9,8 @@ cd basics
 npm init -y
 npm install webpack webpack-cli --save-dev
 ```
+
+In this repo:
+- Using template html to create main `index.html` by using `html-webpack-plugin`
+- Inlining critical CSS using `style-loader` and `css-loader` of only certain files
+- Extracting CSS into separate file and loading it using `<link>`
