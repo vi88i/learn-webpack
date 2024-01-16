@@ -53,6 +53,13 @@ module.exports = (env, argv) => {
                         - This approach is used mainly for inlining critical CSS
                     */
                     use: ["style-loader", "css-loader"]
+                },
+                {
+                    // if you find sth like import xyz from "abc.svg" 
+                    // then copy that resource to output dir (dist) with random guid (random-guid.svg)
+                    // assign the name of copied resoure to xyz, xyz = "random-guid.svg"
+                    test: /\.svg$/i,
+                    type: "asset/resource" 
                 }
             ]
         },
@@ -70,8 +77,11 @@ module.exports = (env, argv) => {
                 // sometimes there are assets which can be dynamically requested using fetch
                 // webpack cannot bundle the resources requested using ajax / fetch / axios
                 patterns: [
-                    // copies all files in 'from' to 'dist/endpoints'
-                    { from: path.resolve(__dirname, "src/constants/endpoints"), to: "endpoints/" }
+                    // copies all files from 'src/constants/endpoints' to 'dist/endpoints'
+                    { from: path.resolve(__dirname, "src/constants/endpoints"), to: "endpoints/" },
+                    // copies all files from 'src/static/images' to 'dist/images
+                    // then in html <img src="/images/[name].[ext]"> will load image from dist/image 
+                    { from: path.resolve(__dirname, "src/static/images"), to: "images/" }
                 ]
             }),
             new BundleAnalyzerPlugin()

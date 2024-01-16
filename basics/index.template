@@ -7,5 +7,6 @@
     </head>
     <body>
         <h1><%= htmlWebpackPlugin.options.header %></h1>
+        <img width="64" height="64" src="/images/tongue-emoji.svg">
     </body>
 </html>
