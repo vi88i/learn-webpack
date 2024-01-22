@@ -13,7 +13,9 @@ module.exports = (env, argv) => {
         entry: "./src/index.js",
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "main.js"
+            filename: "main.js",
+            // clean the dist folder always before dumping the new bundles
+            clean: true
         },
         module: {
             rules: [
