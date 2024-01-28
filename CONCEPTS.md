@@ -179,3 +179,36 @@ module.exports = {
     ]
 };
 ```
+
+## Under the hood
+
+- It is a **event-driven plugin-based compiler**
+- A compilation process will have many stages. After each stage an event is emitted. Plugins can hook into the main compilation process by listening to these events and perform additional functionalities.
+
+1. The **compiler** will find the configuration file. It will parse the configuration file and find the first entry point. Webpack creates a *chunk group* for each entry file.
+
+2. The relative path in specificed in entry point is provided to the **resolver**, which will convert relative path to absolute path. And it will check if the file exists or not.
+
+3. The resolver will send the absolute path to **module factory**. It creates a module object which contains information like id, file type, size, content of file etc. This module object is added to chunk group. Each module in chunk group is called as *chunk*.
+
+4. The **parser** will parse the content of module and constructs an AST. This AST is used to find `require` or `import` statements.
+
+If module A imports module B, then there is a directed edge from A to B. Directed Acyclic Graph (DAG) construction is initiated. For each new module discovered repeat step 1 - 4.
+ 
+5. Once all the dependencies are parsed and added to dependency graph. *The modules in DAG are sorted in topological order*.
+
+6. This order is used to bundle the modules in correct order.
+
+7. Various plugins (minification, tree shaking etc.) can now be applied. Suitable transpiler is picked to convert the modules into *browser readable format*.
+
+8. Same process is applied for each entry.
+
+### What happens when something is loaded lazily? (Code splitting)
+
+- When dynamic import is encountered, it indicates the start of new chunk group i.e., new dependency graph.
+
+- Total number of bundles for each entry file = *initial chunk* + *non-initial chunks*
+
+- *initial chunk* only contains those modules that are not lazily loaded.
+
+- *non-initial chunks* are those chunks which get created when dynamic import is encounterec.
