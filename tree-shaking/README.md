@@ -157,3 +157,21 @@ On adding the above to `webpack.config.js`, re-run the webpack build. You'll fin
     "sideEffects": ["./src/colors.js"]
 }
 ```
+
+## Tree-shaking tips
+
+```js
+// Always try to write pure modules / functions using ESM
+
+// always try to use ESM modules
+import _ from "lodash-es";
+
+// import only the required things
+import { cloneDeep } from "lodash-es";
+
+// Ditch default imports and prefer namespace imports
+// On tree shaking only cloneDeep and isNumber will be included in bundle
+import * as _ from "lodash-es";
+_.cloneDeep({ a: 1 })
+_.isNumber(2)
+```
